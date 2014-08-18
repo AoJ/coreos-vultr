@@ -32,3 +32,16 @@ users:
     coreos-ssh-import-github: aoj
 
 manage_etc_hosts: localhost
+
+write_files:
+  - path: /etc/ssh/sshd_config
+    permissions: 0600
+    owner: root:root
+    content: |
+      UsePrivilegeSeparation sandbox
+      Subsystem sftp internal-sftp
+
+      PermitRootLogin no
+      AllowUsers aoj core
+      PasswordAuthentication no
+      ChallengeResponseAuthentication no
